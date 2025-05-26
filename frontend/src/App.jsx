@@ -11,7 +11,7 @@ import MembersList from './AdminDashboard/component/MemberList'
 import PlansManager from './AdminDashboard/PlansManager'
 import Attendance from './AdminDashboard/Attendance'
 import AttendanceForm from './pages/AttendanceForm'
-import GymWebsite from './pages/HomeWebsite'
+import HomeWebsite from './pages/HomeWebsite'
 
 function App() {
 
@@ -20,9 +20,10 @@ function App() {
       <ToastContainer position="top-right" />
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<GymWebsite />} />
+      <Route path="/" element={<HomeWebsite/>} />
       <Route path="/login" element={<Login />} />
       <Route path="mark-attendance" element={<AttendanceForm />} />
+      <Route path ="register" element={<RegisterMember />} />
 
           <Route path="adminDashboard" element={<ProtectedRoute allowedRole="admin"> <AdminLayout /> </ProtectedRoute>}>
 

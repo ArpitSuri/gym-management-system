@@ -466,19 +466,254 @@ const AttendanceTable = ({ data, onRefresh }) => {
             : <ArrowDown className="w-4 h-4 text-cyan-400" />;
     };
 
+    // return (
+    //     <div className="p-6 bg-black min-h-screen">
+    //         <div className="max-w-7xl mx-auto">
+    //             <div className="bg-gray-900 rounded-xl shadow-2xl border border-gray-800">
+    //                 <div className="p-6 border-b border-gray-800">
+    //                     <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+    //                         <div>
+    //                             <h2 className="text-3xl font-bold text-white">Member Attendance</h2>
+    //                             <p className="text-gray-400 mt-1">Track daily gym member check-ins</p>
+    //                         </div>
+
+    //                         <div className="flex items-center gap-4">
+    //                             <div className="relative">
+    //                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+    //                                 <input
+    //                                     type="text"
+    //                                     placeholder="Search members..."
+    //                                     value={searchTerm}
+    //                                     onChange={(e) => {
+    //                                         setSearchTerm(e.target.value);
+    //                                         setCurrentPage(1);
+    //                                     }}
+    //                                     className="pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 w-64 transition-all"
+    //                                 />
+    //                             </div>
+
+    //                             <div className="flex gap-3 text-sm">
+    //                                 <span className="bg-green-900 text-green-400 px-4 py-2 rounded-lg border border-green-700 shadow-lg shadow-green-500/20">
+    //                                     Present: {sortedData.filter(entry => entry.checkIns.length > 0).length}
+    //                                 </span>
+    //                                 <span className="bg-red-900 text-red-400 px-4 py-2 rounded-lg border border-red-700 shadow-lg shadow-red-500/20">
+    //                                     Absent: {sortedData.filter(entry => entry.checkIns.length === 0).length}
+    //                                 </span>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+
+    //                 <div className="overflow-x-auto">
+    //                     <table className="w-full">
+    //                         <thead className="bg-gray-800 border-b border-gray-700">
+    //                             <tr>
+    //                                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+    //                                     Member
+    //                                 </th>
+    //                                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+    //                                     <button
+    //                                         onClick={() => handleSort('name')}
+    //                                         className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
+    //                                     >
+    //                                         Name
+    //                                         {getSortIcon('name')}
+    //                                     </button>
+    //                                 </th>
+    //                                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+    //                                     <button
+    //                                         onClick={() => handleSort('phone')}
+    //                                         className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
+    //                                     >
+    //                                         Phone
+    //                                         {getSortIcon('phone')}
+    //                                     </button>
+    //                                 </th>
+    //                                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+    //                                     <button
+    //                                         onClick={() => handleSort('checkInTime')}
+    //                                         className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
+    //                                     >
+    //                                         Check-in Times
+    //                                         {getSortIcon('checkInTime')}
+    //                                     </button>
+    //                                 </th>
+    //                                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+    //                                     <button
+    //                                         onClick={() => handleSort('status')}
+    //                                         className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
+    //                                     >
+    //                                         Status
+    //                                         {getSortIcon('status')}
+    //                                     </button>
+    //                                 </th>
+    //                                 <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+    //                                     Actions
+    //                                 </th>
+    //                             </tr>
+    //                         </thead>
+    //                         <tbody className="bg-gray-900 divide-y divide-gray-800">
+    //                             {paginatedData.map((entry) => (
+    //                                 <tr key={entry.memberId} className="hover:bg-gray-800 transition-all duration-300 group">
+    //                                     <td className="px-6 py-4 whitespace-nowrap">
+    //                                         {entry.photoUrl ? (
+    //                                             <img
+    //                                                 src={entry.photoUrl}
+    //                                                 className="h-12 w-12 rounded-full object-cover border-2 border-gray-700 group-hover:border-cyan-400 transition-all"
+    //                                                 alt="Member"
+    //                                             />
+    //                                         ) : (
+    //                                             <div className="h-12 w-12 rounded-full bg-gray-800 border-2 border-gray-700 group-hover:border-cyan-400 flex items-center justify-center transition-all">
+    //                                                 <span className="text-gray-300 font-bold text-lg">
+    //                                                     {entry.name.charAt(0).toUpperCase()}
+    //                                                 </span>
+    //                                             </div>
+    //                                         )}
+    //                                     </td>
+    //                                     <td className="px-6 py-4 whitespace-nowrap">
+    //                                         <div className="text-lg font-medium text-white group-hover:text-cyan-400 transition-colors">
+    //                                             {entry.name}
+    //                                         </div>
+    //                                     </td>
+    //                                     <td className="px-6 py-4 whitespace-nowrap">
+    //                                         <div className="text-gray-400 font-mono">{entry.phone}</div>
+    //                                     </td>
+    //                                     <td className="px-6 py-4">
+    //                                         <div className="flex flex-wrap gap-2">
+    //                                             {entry.checkIns.length > 0 ? (
+    //                                                 entry.checkIns.map((time, idx) => (
+    //                                                     <span
+    //                                                         key={idx}
+    //                                                         className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-cyan-900 text-cyan-300 border border-cyan-700 shadow-md shadow-cyan-500/20"
+    //                                                     >
+    //                                                         {new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+    //                                                     </span>
+    //                                                 ))
+    //                                             ) : (
+    //                                                 <span className="text-gray-500 text-sm">No check-ins</span>
+    //                                             )}
+    //                                         </div>
+    //                                     </td>
+    //                                     <td className="px-6 py-4 whitespace-nowrap">
+    //                                         {entry.checkIns.length > 0 ? (
+    //                                             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-900 text-green-400 border border-green-700 shadow-lg shadow-green-500/30">
+    //                                                 <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+    //                                                 Present
+    //                                             </span>
+    //                                         ) : (
+    //                                             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-900 text-red-400 border border-red-700 shadow-lg shadow-red-500/30">
+    //                                                 <div className="w-2 h-2 bg-red-400 rounded-full mr-2"></div>
+    //                                                 Absent
+    //                                             </span>
+    //                                         )}
+    //                                     </td>
+    //                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+    //                                         <button
+    //                                             onClick={() => handleManualCheckin(entry.memberId)}
+    //                                             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
+    //                                         >
+    //                                             Check-in
+    //                                         </button>
+    //                                     </td>
+    //                                 </tr>
+    //                             ))}
+    //                         </tbody>
+    //                     </table>
+    //                 </div>
+
+    //                 {paginatedData.length === 0 && (
+    //                     <div className="text-center py-16">
+    //                         <div className="text-gray-500 text-xl">
+    //                             {searchTerm ? 'No members found matching your search.' : 'No attendance data available.'}
+    //                         </div>
+    //                     </div>
+    //                 )}
+
+    //                 {totalPages > 1 && (
+    //                     <div className="bg-gray-800 px-6 py-4 flex items-center justify-between border-t border-gray-700">
+    //                         <div className="flex-1 flex justify-between sm:hidden">
+    //                             <button
+    //                                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+    //                                 disabled={currentPage === 1}
+    //                                 className="relative inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 transition-all"
+    //                             >
+    //                                 Previous
+    //                             </button>
+    //                             <button
+    //                                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+    //                                 disabled={currentPage === totalPages}
+    //                                 className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 transition-all"
+    //                             >
+    //                                 Next
+    //                             </button>
+    //                         </div>
+    //                         <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+    //                             <div>
+    //                                 <p className="text-sm text-gray-400">
+    //                                     Showing{' '}
+    //                                     <span className="font-medium text-cyan-400">{((currentPage - 1) * itemsPerPage) + 1}</span>
+    //                                     {' '}to{' '}
+    //                                     <span className="font-medium text-cyan-400">
+    //                                         {Math.min(currentPage * itemsPerPage, sortedData.length)}
+    //                                     </span>
+    //                                     {' '}of{' '}
+    //                                     <span className="font-medium text-cyan-400">{sortedData.length}</span>
+    //                                     {' '}results
+    //                                 </p>
+    //                             </div>
+    //                             <div>
+    //                                 <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+    //                                     <button
+    //                                         onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+    //                                         disabled={currentPage === 1}
+    //                                         className="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-600 bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600 disabled:opacity-50 transition-all"
+    //                                     >
+    //                                         <ChevronLeft className="h-5 w-5" />
+    //                                     </button>
+    //                                     {[...Array(Math.min(totalPages, 5))].map((_, i) => {
+    //                                         const page = i + 1;
+    //                                         return (
+    //                                             <button
+    //                                                 key={page}
+    //                                                 onClick={() => setCurrentPage(page)}
+    //                                                 className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-all ${currentPage === page
+    //                                                         ? 'z-10 bg-cyan-600 border-cyan-500 text-white shadow-lg shadow-cyan-500/30'
+    //                                                         : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
+    //                                                     }`}
+    //                                             >
+    //                                                 {page}
+    //                                             </button>
+    //                                         );
+    //                                     })}
+    //                                     <button
+    //                                         onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+    //                                         disabled={currentPage === totalPages}
+    //                                         className="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-600 bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600 disabled:opacity-50 transition-all"
+    //                                     >
+    //                                         <ChevronRight className="h-5 w-5" />
+    //                                     </button>
+    //                                 </nav>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 )}
+    //             </div>
+    //         </div>
+    //     </div>
+    // );
     return (
-        <div className="p-6 bg-black min-h-screen">
+        <div className="p-4 sm:p-6 bg-black min-h-screen">
             <div className="max-w-7xl mx-auto">
                 <div className="bg-gray-900 rounded-xl shadow-2xl border border-gray-800">
-                    <div className="p-6 border-b border-gray-800">
+                    <div className="p-4 sm:p-6 border-b border-gray-800">
                         <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
                             <div>
-                                <h2 className="text-3xl font-bold text-white">Member Attendance</h2>
-                                <p className="text-gray-400 mt-1">Track daily gym member check-ins</p>
+                                <h2 className="text-2xl sm:text-3xl font-bold text-white">Member Attendance</h2>
+                                <p className="text-gray-400 mt-1 text-sm sm:text-base">Track daily gym member check-ins</p>
                             </div>
 
-                            <div className="flex items-center gap-4">
-                                <div className="relative">
+                            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                                <div className="relative w-full sm:w-64">
                                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                                     <input
                                         type="text"
@@ -488,15 +723,15 @@ const AttendanceTable = ({ data, onRefresh }) => {
                                             setSearchTerm(e.target.value);
                                             setCurrentPage(1);
                                         }}
-                                        className="pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 w-64 transition-all"
+                                        className="w-full pl-10 pr-4 py-2 sm:py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all"
                                     />
                                 </div>
 
-                                <div className="flex gap-3 text-sm">
-                                    <span className="bg-green-900 text-green-400 px-4 py-2 rounded-lg border border-green-700 shadow-lg shadow-green-500/20">
+                                <div className="flex gap-2 sm:gap-3 text-xs sm:text-sm">
+                                    <span className="bg-green-900 text-green-400 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-green-700 shadow-md shadow-green-500/20">
                                         Present: {sortedData.filter(entry => entry.checkIns.length > 0).length}
                                     </span>
-                                    <span className="bg-red-900 text-red-400 px-4 py-2 rounded-lg border border-red-700 shadow-lg shadow-red-500/20">
+                                    <span className="bg-red-900 text-red-400 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-red-700 shadow-md shadow-red-500/20">
                                         Absent: {sortedData.filter(entry => entry.checkIns.length === 0).length}
                                     </span>
                                 </div>
@@ -505,113 +740,74 @@ const AttendanceTable = ({ data, onRefresh }) => {
                     </div>
 
                     <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead className="bg-gray-800 border-b border-gray-700">
+                        <table className="w-full text-sm">
+                            <thead className="bg-gray-800 border-b border-gray-700 text-xs sm:text-sm">
                                 <tr>
-                                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                        Member
-                                    </th>
-                                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                        <button
-                                            onClick={() => handleSort('name')}
-                                            className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
-                                        >
-                                            Name
-                                            {getSortIcon('name')}
+                                    <th className="px-4 sm:px-6 py-3 text-left text-gray-300">Member</th>
+                                    <th className="px-4 sm:px-6 py-3">
+                                        <button onClick={() => handleSort('name')} className="flex items-center gap-1 sm:gap-2 text-left text-gray-300 hover:text-cyan-400 transition-colors">
+                                            Name {getSortIcon('name')}
                                         </button>
                                     </th>
-                                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                        <button
-                                            onClick={() => handleSort('phone')}
-                                            className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
-                                        >
-                                            Phone
-                                            {getSortIcon('phone')}
+                                    <th className="px-4 sm:px-6 py-3 hidden sm:table-cell">
+                                        <button onClick={() => handleSort('phone')} className="flex items-center gap-2 text-gray-300 hover:text-cyan-400 transition-colors">
+                                            Phone {getSortIcon('phone')}
                                         </button>
                                     </th>
-                                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                        <button
-                                            onClick={() => handleSort('checkInTime')}
-                                            className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
-                                        >
-                                            Check-in Times
-                                            {getSortIcon('checkInTime')}
+                                    <th className="px-4 sm:px-6 py-3 hidden md:table-cell">
+                                        <button onClick={() => handleSort('checkInTime')} className="flex items-center gap-2 text-gray-300 hover:text-cyan-400 transition-colors">
+                                            Check-ins {getSortIcon('checkInTime')}
                                         </button>
                                     </th>
-                                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                        <button
-                                            onClick={() => handleSort('status')}
-                                            className="flex items-center gap-2 hover:text-cyan-400 transition-colors"
-                                        >
-                                            Status
-                                            {getSortIcon('status')}
+                                    <th className="px-4 sm:px-6 py-3">
+                                        <button onClick={() => handleSort('status')} className="flex items-center gap-2 text-gray-300 hover:text-cyan-400 transition-colors">
+                                            Status {getSortIcon('status')}
                                         </button>
                                     </th>
-                                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                                        Actions
-                                    </th>
+                                    <th className="px-4 sm:px-6 py-3 text-left text-gray-300">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="bg-gray-900 divide-y divide-gray-800">
-                                {paginatedData.map((entry) => (
-                                    <tr key={entry.memberId} className="hover:bg-gray-800 transition-all duration-300 group">
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                {paginatedData.map(entry => (
+                                    <tr key={entry.memberId} className="hover:bg-gray-800 transition">
+                                        <td className="px-4 sm:px-6 py-3">
                                             {entry.photoUrl ? (
-                                                <img
-                                                    src={entry.photoUrl}
-                                                    className="h-12 w-12 rounded-full object-cover border-2 border-gray-700 group-hover:border-cyan-400 transition-all"
-                                                    alt="Member"
-                                                />
+                                                <img src={entry.photoUrl} className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover border-2 border-gray-700" alt="Member" />
                                             ) : (
-                                                <div className="h-12 w-12 rounded-full bg-gray-800 border-2 border-gray-700 group-hover:border-cyan-400 flex items-center justify-center transition-all">
-                                                    <span className="text-gray-300 font-bold text-lg">
-                                                        {entry.name.charAt(0).toUpperCase()}
-                                                    </span>
+                                                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gray-800 border-2 border-gray-700 flex items-center justify-center text-white font-bold">
+                                                    {entry.name.charAt(0).toUpperCase()}
                                                 </div>
                                             )}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-lg font-medium text-white group-hover:text-cyan-400 transition-colors">
-                                                {entry.name}
-                                            </div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-gray-400 font-mono">{entry.phone}</div>
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <div className="flex flex-wrap gap-2">
-                                                {entry.checkIns.length > 0 ? (
-                                                    entry.checkIns.map((time, idx) => (
-                                                        <span
-                                                            key={idx}
-                                                            className="inline-flex items-center px-3 py-1 rounded-md text-sm font-medium bg-cyan-900 text-cyan-300 border border-cyan-700 shadow-md shadow-cyan-500/20"
-                                                        >
-                                                            {new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        <td className="px-4 sm:px-6 py-3 text-white">{entry.name}</td>
+                                        <td className="px-4 sm:px-6 py-3 hidden sm:table-cell text-gray-400">{entry.phone}</td>
+                                        <td className="px-4 sm:px-6 py-3 hidden md:table-cell">
+                                            <div className="flex flex-wrap gap-1">
+                                                {entry.checkIns.length > 0
+                                                    ? entry.checkIns.map((t, i) => (
+                                                        <span key={i} className="bg-cyan-900 text-cyan-300 px-2 py-1 rounded text-xs border border-cyan-700">
+                                                            {new Date(t).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                         </span>
                                                     ))
-                                                ) : (
-                                                    <span className="text-gray-500 text-sm">No check-ins</span>
-                                                )}
+                                                    : <span className="text-gray-500">No check-ins</span>
+                                                }
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        <td className="px-4 sm:px-6 py-3">
                                             {entry.checkIns.length > 0 ? (
-                                                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-900 text-green-400 border border-green-700 shadow-lg shadow-green-500/30">
+                                                <span className="flex items-center px-3 py-1 rounded-full bg-green-900 text-green-400 border border-green-700">
                                                     <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                                                     Present
                                                 </span>
                                             ) : (
-                                                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-900 text-red-400 border border-red-700 shadow-lg shadow-red-500/30">
-                                                    <div className="w-2 h-2 bg-red-400 rounded-full mr-2"></div>
+                                                <span className="flex items-center px-3 py-1 rounded-full bg-red-900 text-red-400 border border-red-700">
+                                                    <div className="w-2 h-2 bg-red-400 rounded-full mr-2 animate-pulse"></div>
                                                     Absent
                                                 </span>
                                             )}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button
-                                                onClick={() => handleManualCheckin(entry.memberId)}
-                                                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
-                                            >
+                                        <td className="px-4 sm:px-6 py-3">
+                                            <button onClick={() => handleManualCheckin(entry.memberId)} className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-md text-sm transition transform hover:scale-105 shadow">
                                                 Check-in
                                             </button>
                                         </td>
@@ -621,86 +817,23 @@ const AttendanceTable = ({ data, onRefresh }) => {
                         </table>
                     </div>
 
-                    {paginatedData.length === 0 && (
-                        <div className="text-center py-16">
-                            <div className="text-gray-500 text-xl">
-                                {searchTerm ? 'No members found matching your search.' : 'No attendance data available.'}
-                            </div>
-                        </div>
-                    )}
-
-                    {totalPages > 1 && (
-                        <div className="bg-gray-800 px-6 py-4 flex items-center justify-between border-t border-gray-700">
-                            <div className="flex-1 flex justify-between sm:hidden">
-                                <button
-                                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                                    disabled={currentPage === 1}
-                                    className="relative inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 transition-all"
-                                >
-                                    Previous
-                                </button>
-                                <button
-                                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                                    disabled={currentPage === totalPages}
-                                    className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-300 bg-gray-700 hover:bg-gray-600 disabled:opacity-50 transition-all"
-                                >
-                                    Next
-                                </button>
-                            </div>
-                            <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                                <div>
-                                    <p className="text-sm text-gray-400">
-                                        Showing{' '}
-                                        <span className="font-medium text-cyan-400">{((currentPage - 1) * itemsPerPage) + 1}</span>
-                                        {' '}to{' '}
-                                        <span className="font-medium text-cyan-400">
-                                            {Math.min(currentPage * itemsPerPage, sortedData.length)}
-                                        </span>
-                                        {' '}of{' '}
-                                        <span className="font-medium text-cyan-400">{sortedData.length}</span>
-                                        {' '}results
-                                    </p>
-                                </div>
-                                <div>
-                                    <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-                                        <button
-                                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                                            disabled={currentPage === 1}
-                                            className="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-600 bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600 disabled:opacity-50 transition-all"
-                                        >
-                                            <ChevronLeft className="h-5 w-5" />
-                                        </button>
-                                        {[...Array(Math.min(totalPages, 5))].map((_, i) => {
-                                            const page = i + 1;
-                                            return (
-                                                <button
-                                                    key={page}
-                                                    onClick={() => setCurrentPage(page)}
-                                                    className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium transition-all ${currentPage === page
-                                                            ? 'z-10 bg-cyan-600 border-cyan-500 text-white shadow-lg shadow-cyan-500/30'
-                                                            : 'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600'
-                                                        }`}
-                                                >
-                                                    {page}
-                                                </button>
-                                            );
-                                        })}
-                                        <button
-                                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                                            disabled={currentPage === totalPages}
-                                            className="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-600 bg-gray-700 text-sm font-medium text-gray-300 hover:bg-gray-600 disabled:opacity-50 transition-all"
-                                        >
-                                            <ChevronRight className="h-5 w-5" />
-                                        </button>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                    {/* Pagination */}
+                    <div className="flex justify-between items-center px-4 sm:px-6 py-4 border-t border-gray-800 text-white text-sm">
+                        <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="flex items-center gap-1 px-3 py-2 rounded bg-gray-800 hover:bg-gray-700 disabled:opacity-50">
+                            <ChevronLeft className="w-4 h-4" /> Prev
+                        </button>
+                        <span>
+                            Page {currentPage} of {totalPages}
+                        </span>
+                        <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages} className="flex items-center gap-1 px-3 py-2 rounded bg-gray-800 hover:bg-gray-700 disabled:opacity-50">
+                            Next <ChevronRight className="w-4 h-4" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     );
+    
 };
 
 export default AttendanceTable;

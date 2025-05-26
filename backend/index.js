@@ -9,6 +9,7 @@ import memberRouter from './routes/memberRouter.js';
 import attendanceRouter from "./routes/attendaceRouter.js";
 import planRouter from './routes/planRouter.js';
 import adminRouter from './routes/adminRoute.js';
+import "./reminders/memberShipReminder.js"
 
 
 app.use(cors());

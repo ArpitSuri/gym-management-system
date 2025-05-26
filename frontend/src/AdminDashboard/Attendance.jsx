@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AttendanceTable from "./component/AttendanceTable";
 
-
 const Attendance = () => {
     const [attendanceData, setAttendanceData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -23,12 +22,16 @@ const Attendance = () => {
     }, []);
 
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-semibold mb-4">Today's Attendance</h1>
+        <div className="p-4 sm:p-6 md:p-8 w-full">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
+                Today's Attendance
+            </h1>
             {loading ? (
-                <p>Loading...</p>
+                <p className="text-white">Loading...</p>
             ) : (
-                <AttendanceTable data={attendanceData} onRefresh={fetchAttendance} />
+                <div className="overflow-x-auto rounded-lg shadow">
+                    <AttendanceTable data={attendanceData} onRefresh={fetchAttendance} />
+                </div>
             )}
         </div>
     );

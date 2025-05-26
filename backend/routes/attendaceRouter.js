@@ -5,6 +5,6 @@ const router = express.Router();
 router.post('/scan-qr-checkin', markQrAttendance);          // QR Scan
 router.post('/manual-checkin', markManualAttendance);    // Manual Check-In
 router.get('/today', getTodayAttendance);
-router.get('/member/:memberId', getAttendanceByMember);
+router.get('/:memberId', getAttendanceByMember);
 
 export default router;

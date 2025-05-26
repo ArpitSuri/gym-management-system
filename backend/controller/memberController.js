@@ -1,6 +1,67 @@
 import Member from "../models/memberModel.js";
 import Plan from "../models/planModel.js"; 
+import nodemailer from "nodemailer";
+import { getWelcomeEmail } from "../reminders/emailTemplates.js"; // Adjust the path as needed
 
+
+// export const registerMember = async (req, res) => {
+//     try {
+//         const {
+//             fullName,
+//             email,
+//             phone,
+//             gender,
+//             dateOfBirth,
+//             address,
+//             emergencyContact,
+//             membershipPlan
+//         } = req.body;
+
+//         // Check if email or phone exists (as before)
+//         const emailExists = await Member.findOne({ email });
+//         if (emailExists) return res.status(400).json({ error: 'Email already exists' });
+
+//         const phoneExists = await Member.findOne({ phone });
+//         if (phoneExists) return res.status(400).json({ error: 'Phone already exists' });
+
+//         // 🔹 Get photo URL from Cloudinary
+//         const photoUrl = req.file?.path || '';
+
+//         const newMember = new Member({
+//             fullName,
+//             email,
+//             phone,
+//             gender,
+//             dateOfBirth,
+//             address,
+//             photoUrl,
+//             emergencyContact,
+//             membershipPlans: [membershipPlan]
+//         });
+
+//         await newMember.save();
+
+//         res.status(201).json({
+//             message: 'Member registered successfully',
+//             member: newMember
+//         });
+//     } catch (error) {
+//         console.error('Register Member Error:', error);
+//         res.status(500).json({ error: error.message || 'Failed to register member' });
+//     }
+// };
+  
+
+
+
+// setup mailer
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
 
 export const registerMember = async (req, res) => {
     try {
@@ -15,16 +76,17 @@ export const registerMember = async (req, res) => {
             membershipPlan
         } = req.body;
 
-        // Check if email or phone exists (as before)
+        // Check for duplicate email/phone
         const emailExists = await Member.findOne({ email });
-        if (emailExists) return res.status(400).json({ error: 'Email already exists' });
+        if (emailExists) return res.status(400).json({ error: "Email already exists" });
 
         const phoneExists = await Member.findOne({ phone });
-        if (phoneExists) return res.status(400).json({ error: 'Phone already exists' });
+        if (phoneExists) return res.status(400).json({ error: "Phone already exists" });
 
-        // 🔹 Get photo URL from Cloudinary
-        const photoUrl = req.file?.path || '';
+        // Get photo URL (optional from Cloudinary)
+        const photoUrl = req.file?.path || "";
 
+        // Create new member with membership
         const newMember = new Member({
             fullName,
             email,
@@ -39,17 +101,24 @@ export const registerMember = async (req, res) => {
 
         await newMember.save();
 
+        // ✅ Send Welcome Email
+        const { subject, html } = getWelcomeEmail(fullName);
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject,
+            html
+        });
+
         res.status(201).json({
-            message: 'Member registered successfully',
+            message: "Member registered successfully",
             member: newMember
         });
     } catch (error) {
-        console.error('Register Member Error:', error);
-        res.status(500).json({ error: error.message || 'Failed to register member' });
+        console.error("Register Member Error:", error);
+        res.status(500).json({ error: error.message || "Failed to register member" });
     }
 };
-  
-
 
 
 export const updateMemberProfile = async (req, res) => {

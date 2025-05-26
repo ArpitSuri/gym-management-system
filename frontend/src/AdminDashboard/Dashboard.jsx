@@ -48,32 +48,33 @@ const SummaryCard = ({ title, value, icon: Icon, trend, color = "blue" }) => {
 };
 
 // pages/Dashboard.jsx
+
+
+
+
 const Dashboard = () => {
     const [stats, setStats] = useState({
-        totalMembers: 245,
-        activeMemberships: 198,
-        todayAttendance: 89,
-        absentees: 109
+        totalMembers: 0,
+        activeMemberships: 0,
+        todayAttendance: 0,
+        absentees: 0
     });
+
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchStats = async () => {
-            const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/admin/stats`);
-            setStats(res.data);
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL}/api/admin/stats`);
+                setStats(res.data);
+            } catch (error) {
+                console.error("Failed to fetch stats:", error);
+            } finally {
+                setLoading(false);
+            }
         };
+
         fetchStats();
-
-        // Simulate loading with animation
-        const timer = setTimeout(() => {
-            setStats({
-                totalMembers: 245,
-                activeMemberships: 198,
-                todayAttendance: 89,
-                absentees: 109
-            });
-        }, 500);
-
-        return () => clearTimeout(timer);
     }, []);
 
     const cardData = [
@@ -108,7 +109,7 @@ const Dashboard = () => {
     ];
 
     return (
-        <div className="bg-black text-white">
+        <div className="bg-black text-white min-h-screen">
             {/* Background decoration */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none"></div>
 
@@ -146,23 +147,27 @@ const Dashboard = () => {
                 </div>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                    {cardData.map((card, index) => (
-                        <div
-                            key={card.title}
-                            className="animate-fade-in"
-                            style={{ animationDelay: `${index * 100}ms` }}
-                        >
-                            <SummaryCard
-                                title={card.title}
-                                value={card.value}
-                                icon={card.icon}
-                                color={card.color}
-                                trend={card.trend}
-                            />
-                        </div>
-                    ))}
-                </div>
+                {loading ? (
+                    <div className="text-center text-gray-500 py-10">Loading stats...</div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                        {cardData.map((card, index) => (
+                            <div
+                                key={card.title}
+                                className="animate-fade-in"
+                                style={{ animationDelay: `${index * 100}ms` }}
+                            >
+                                <SummaryCard
+                                    title={card.title}
+                                    value={card.value}
+                                    icon={card.icon}
+                                    color={card.color}
+                                    trend={card.trend}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
 
                 {/* Additional Sections Placeholder */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -179,24 +184,22 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-
-            
-
                 </div>
             </div>
 
+            {/* Fade-in animation */}
             <style jsx>{`
                 @keyframes fade-in {
-                    from { 
-                        opacity: 0; 
-                        transform: translateY(20px); 
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
                     }
-                    to { 
-                        opacity: 1; 
-                        transform: translateY(0); 
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
                     }
                 }
-                
+
                 .animate-fade-in {
                     animation: fade-in 0.6s ease-out forwards;
                     opacity: 0;
@@ -207,3 +210,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

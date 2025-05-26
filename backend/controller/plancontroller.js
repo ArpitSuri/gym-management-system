@@ -95,3 +95,61 @@ export const deletePlan = async (req, res) => {
         res.status(500).json({ error: error.message || "Failed to delete plan" });
     }
 };
+
+import Member from "../models/memberModel.js";
+import nodemailer from "nodemailer";
+import { getPlanAddedEmail } from "../reminders/emailTemplates.js";
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
+
+export const addPlanToMember = async (req, res) => {
+    try {
+        const { memberId } = req.params;
+        const { planId, startDate, option } = req.body;
+
+        if (!planId || !startDate || !option) {
+            return res.status(400).json({ error: "PlanId, startDate and option are required" });
+        }
+
+        const member = await Member.findById(memberId);
+        if (!member) return res.status(404).json({ error: "Member not found" });
+
+        // Optional: Check if all existing plans are expired or inactive
+        // You can customize this logic as needed
+        const activePlan = member.membershipPlans.find(plan => plan.isActive);
+        if (activePlan) {
+            return res.status(400).json({ error: "Member already has an active plan" });
+        }
+
+        // Add new plan
+        const newMembershipPlan = {
+            planId,
+            startDate,
+            option,
+            isActive: true,
+        };
+
+        member.membershipPlans.push(newMembershipPlan);
+        await member.save();
+
+        // Send plan-added email notification
+        const { subject, html } = getPlanAddedEmail(member.fullName, option, new Date(startDate));
+        await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: member.email,
+            subject,
+            html,
+        });
+
+        res.status(200).json({ message: "New plan added and email sent", member });
+    } catch (error) {
+        console.error("Add Plan Error:", error);
+        res.status(500).json({ error: error.message || "Failed to add plan" });
+    }
+};
