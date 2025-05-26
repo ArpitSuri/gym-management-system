@@ -2,7 +2,8 @@ import React from 'react';
 import {
     Home, Users, UserPlus, ClipboardList, Calendar,
     Menu, X,
-    NotebookPen
+    NotebookPen,
+    QrCode
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         { name: 'Register Member', path: '/adminDashboard/register', icon: <UserPlus className="w-6 h-6" /> },
         { name: 'Attendance', path: '/adminDashboard/attendance', icon: <Calendar className="w-6 h-6" /> },
         { name: 'Plans', path: '/adminDashboard/plans', icon: <ClipboardList className="w-6 h-6" /> },
+        { name: 'QR Codes', path: '/adminDashboard/qrcodes', icon: <QrCode className="w-6 h-6" /> },
     ];
 
     const [activeItem, setActiveItem] = React.useState('Dashboard');

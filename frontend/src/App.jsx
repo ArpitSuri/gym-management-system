@@ -12,6 +12,7 @@ import PlansManager from './AdminDashboard/PlansManager'
 import Attendance from './AdminDashboard/Attendance'
 import AttendanceForm from './pages/AttendanceForm'
 import HomeWebsite from './pages/HomeWebsite'
+import QRCodes from './AdminDashboard/QRCodes'
 
 function App() {
 
@@ -32,7 +33,8 @@ function App() {
             <Route path="register" element={<RegisterMember />} />
             <Route path="attendance" element={<Attendance />} />
             <Route path="plans" element={<PlansManager />} />
-            
+            <Route path="qrcodes" element={<QRCodes />} />
+
           </Route>
     </Routes>
     </BrowserRouter>
