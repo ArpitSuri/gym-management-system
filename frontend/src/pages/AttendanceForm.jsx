@@ -45,11 +45,20 @@ const AttendanceForm = () => {
                 />
                 <button
                     type="submit"
-                    className="w-full bg-black text-white py-2 rounded hover:bg-grey-100"
+                    className="w-full bg-black text-white py-2 rounded hover:bg-grey-100 cursor-pointer"
                 >
                     Mark Attendance
                 </button>
+
+               
             </form>
+            <div className="px-8 py-4 bg-gray-50 border-t border-gray-100 text-center text-sm text-gray-600">
+                Take me back to main website?{" "}
+                <a href="/" className="font-medium tex hover:text-black">
+                    Click here
+                </a>
+            </div>
+            
             {/* {message && (
                 <div className={`mt-4 text-center ${status === 'success' ? 'text-green-600' : 'text-red-600'}`}>
                     {message}

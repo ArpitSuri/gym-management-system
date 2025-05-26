@@ -24,7 +24,7 @@ import {
     Gem,
     Shield
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+
 
 // Custom hook for scroll animations
 const useScrollAnimation = (ref, start = 0, end = 1) => {
@@ -93,7 +93,7 @@ const LoadingScreen = () => {
         }
     }, [progress]);
 
-    const navigate = useNavigate();
+
 
     return (
         <AnimatePresence>
@@ -230,7 +230,7 @@ const Header = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <span onClick={()=>{navigate("/register")}} className="relative z-10">Join Now</span>
+                            <span className="relative z-10"><a href="/register">Join Now</a></span>
                             <motion.span
                                 className="absolute inset-0 bg-gradient-to-r from-red-700 to-orange-600"
                                 initial={{ opacity: 0 }}
@@ -286,10 +286,12 @@ const Header = () => {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: navItems.length * 0.1 }}
-                                    onClick={() => { navigate("/register") }}
+                                    
                                 >
-                                    Join Now
+                                    <a href="/register">Join Now</a>
                                 </motion.button>
+
+                                
                             </nav>
                         </motion.div>
                     )}
@@ -1939,9 +1941,12 @@ const Footer = () => {
                                 </motion.li>
                             ))}
                         </ul>
+                        <h3 className="text-sm font-semibold mb-4 mt-4 cursor-pointer" onClick={() => {
+
+                        }}> <a href="/mark-attendance">Mark-Attendance </a></h3>
                         <h3 className="text-sm font-semibold mb-4 mt-4 cursor-pointer" onClick={()=>{
-                            useNavigate("/login");
-                        }}>Owner</h3>
+                           
+                        }}> <a href="/login">Owner </a></h3>
 
                     </motion.div>
 
@@ -1993,9 +1998,9 @@ const Footer = () => {
                                 className="bg-gradient-to-r from-red-600 to-orange-500 text-white px-4 py-2 rounded-r-lg font-medium"
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => { navigate("/register") }}
+                                
                             >
-                                Join
+                                <a href='/register'>Join Us</a>
                             </motion.button>
                         </motion.form>
                     </motion.div>
